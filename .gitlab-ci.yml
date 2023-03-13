@@ -31,3 +31,4 @@ compile:
   artifacts:
     paths:
       - bin
+    expire_in: 1 week
