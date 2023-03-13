@@ -58,7 +58,7 @@ func main() {
 	getopt.Parse()
 
 	if *version {
-		fmt.Println("Version 0.0.1")
+		fmt.Println("Version 0.0.2")
 		os.Exit(0)
 	}
 
