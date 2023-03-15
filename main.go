@@ -24,6 +24,8 @@ func printStats(pinger *probing.Pinger) {
 
 func eventLoop(pinger *probing.Pinger) {
 	ticker := time.NewTicker(time.Second * 4)
+	defer ticker.Stop()
+	defer pinger.Stop()
 
 	// Setup signals on term and interrupt.
 	sig := make(chan os.Signal, 1)
@@ -33,8 +35,6 @@ func eventLoop(pinger *probing.Pinger) {
 		select {
 		// Got signal. stop pinger and exit goroutine
 		case <-sig:
-			ticker.Stop()
-			pinger.Stop()
 			return
 		// Ticker ticks. print stats.
 		case <-ticker.C:
