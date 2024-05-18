@@ -34,7 +34,8 @@ func eventLoop(pinger *probing.Pinger) {
 	for {
 		select {
 		// Got signal. stop pinger and exit goroutine
-		case <-sig:
+		case s := <-sig:
+			fmt.Printf("Recived signal: %s, exiting.", s)
 			return
 		// Ticker ticks. print stats.
 		case <-ticker.C:
