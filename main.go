@@ -22,8 +22,7 @@ func printStats(pinger *probing.Pinger) {
 		stats.MinRtt, stats.AvgRtt, stats.MaxRtt, stats.StdDevRtt)
 }
 
-func eventLoop(pinger *probing.Pinger) {
-	ticker := time.NewTicker(time.Second * 4)
+func eventLoop(pinger *probing.Pinger, ticker *time.Ticker) {
 	defer ticker.Stop()
 	defer pinger.Stop()
 
@@ -52,6 +51,7 @@ func main() {
 	count := getopt.IntLong("count", 'c', 0, "Stop after this many packages has been sent (and received). If this option is not specified, pinger will operate until interrupted.")
 	timeout := getopt.DurationLong("timeout", 't', 0, "Exit the program after this time is reached, regardless of how many packets have been received.")
 	interval := getopt.DurationLong("interval", 'i', time.Second*2, "Wait time between each packet send")
+	statsInterval := getopt.DurationLong("stats-interval", 0, time.Second*4, "How often stats should be printed to the console.")
 	proto_udp := getopt.BoolLong("udp", 0, "Send UDP ping instead of a raw IMCP ping, IMCP required super-user privileges")
 	record_rtt := getopt.BoolLong("rtt", 0, "Keep a record of rtts of all received packets.")
 
@@ -85,7 +85,7 @@ func main() {
 	}
 
 	// Enter event loop in another goroutine.
-	go eventLoop(pinger)
+	go eventLoop(pinger, time.NewTicker(*statsInterval))
 
 	// Run pinger in main thread.
 	fmt.Println("PING", pinger.Addr())
