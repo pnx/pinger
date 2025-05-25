@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/pborman/getopt/v2"
-	"github.com/prometheus-community/pro-bing"
+	probing "github.com/prometheus-community/pro-bing"
 )
 
 // printStats prints statistics from a ping.
