@@ -12,9 +12,7 @@ import (
 )
 
 // printStats prints statistics from a ping.
-func printStats(pinger *probing.Pinger) {
-	stats := pinger.Statistics()
-
+func printStats(stats *probing.Statistics) {
 	fmt.Printf("%d packets transmitted, %d packets received, %.2f%% packet loss\n",
 		stats.PacketsSent, stats.PacketsRecv, stats.PacketLoss)
 
@@ -38,7 +36,7 @@ func eventLoop(pinger *probing.Pinger, ticker *time.Ticker) {
 			return
 		// Ticker ticks. print stats.
 		case <-ticker.C:
-			printStats(pinger)
+			printStats(pinger.Statistics())
 		}
 	}
 }
