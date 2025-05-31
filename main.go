@@ -78,6 +78,7 @@ func main() {
 	pinger.Source = *source
 	pinger.Count = *count
 	pinger.RecordRtts = *record_rtt
+	pinger.OnFinish = printStats
 	if timeout != nil && *timeout > 0 {
 		pinger.Timeout = *timeout
 	}
