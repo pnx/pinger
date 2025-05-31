@@ -50,6 +50,7 @@ This command sends UDP echo requests to example.com, stopping after 30 seconds
 ```
 
 This command sends 8 ICMP echo requests to example.com, with a 1-second interval between pings.
+
 NOTE: this requires root privileges
 
 ## License
